@@ -136,6 +136,12 @@ public class Person implements Comparable<Person> {
 
     @Override
     public int compareTo(Person o) {
-        return Double.compare(height, o.height);
+        if (height != o.height) {
+            return Double.compare(height, o.height);
+        }
+        if (name.length() != o.name.length()) {
+            return -Integer.compare(name.length(), o.name.length());
+        }
+        return Integer.compare(id, o.id);
     }
 }
