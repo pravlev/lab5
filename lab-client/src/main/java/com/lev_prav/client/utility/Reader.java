@@ -4,5 +4,5 @@ import com.lev_prav.client.exceptions.IllegalValueException;
 
 @FunctionalInterface
 public interface Reader<T> {
-    T read() throws IllegalValueException, NumberFormatException, IllegalArgumentException;
+    T read() throws IllegalValueException;
 }

@@ -18,16 +18,6 @@ public class SimplePersonFiller<T> {
                 userIO.write(message + ": ");
                 returns = reader.read();
                 break;
-            } catch (NumberFormatException e) {
-                userIO.writeln("Value must be a number");
-                if (userIO.isScriptMode()) {
-                    throw new ScriptException();
-                }
-            } catch (IllegalArgumentException e) {
-                userIO.writeln("Chose anything from list");
-                if (userIO.isScriptMode()) {
-                    throw new ScriptException();
-                }
             } catch (IllegalValueException e) {
                 userIO.writeln(e.getMessage());
                 if (userIO.isScriptMode()) {

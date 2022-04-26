@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class UserIO {
     private Scanner fin;
-    private Scanner fileScanner;
+    private Stack<Scanner> fileScanners;
     private BufferedWriter fout;
     private boolean scriptMode;
 
@@ -27,8 +28,8 @@ public class UserIO {
         if (!scriptMode) {
             return fin.nextLine();
         } else {
-            if (fileScanner.hasNext()) {
-                return fileScanner.nextLine();
+            if (fileScanners.peek().hasNext()) {
+                return fileScanners.peek().nextLine();
             } else {
                 finishReadScript();
                 try {
@@ -92,17 +93,27 @@ public class UserIO {
     }
 
     public void startReadScript(String fileName) {
+        if (fileScanners == null) {
+            fileScanners = new Stack<>();
+        }
         try {
             writeln("Start reading from file " + fileName + "...");
-            fileScanner = new Scanner(Paths.get(fileName));
+            fileScanners.push(new Scanner(Paths.get(fileName)));
             scriptMode = true;
         } catch (IOException e) {
             writeln("Cannot find file with this name");
         }
+
     }
 
     public void finishReadScript() {
-        scriptMode = false;
         writeln("Reading from file was finished");
+        if (!fileScanners.empty()) {
+            fileScanners.peek().close();
+            fileScanners.pop();
+        }
+        if (fileScanners.empty()) {
+            scriptMode = false;
+        }
     }
 }

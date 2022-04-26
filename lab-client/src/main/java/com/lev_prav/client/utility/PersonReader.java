@@ -37,24 +37,39 @@ public class PersonReader {
         return string;
     }
 
-    public Long readCoordinateX() throws IllegalValueException, NumberFormatException {
-        long x = Long.parseLong(userIO.readline());
+    public Long readCoordinateX() throws IllegalValueException {
+        long x;
+        try {
+            x = Long.parseLong(userIO.readline());
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Value must be a number");
+        }
         if (x > MAXX) {
             throw new IllegalValueException("Value must be less than " + MAXX);
         }
         return x;
     }
 
-    public Float readCoordinateY() throws IllegalValueException, NumberFormatException {
-        float y = Float.parseFloat(userIO.readline());
+    public Float readCoordinateY() throws IllegalValueException {
+        float y;
+        try {
+            y = Float.parseFloat(userIO.readline());
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Value must be a number");
+        }
         if (y <= MINY) {
             throw new IllegalValueException("Value must be greater than " + MINY);
         }
         return y;
     }
 
-    public double readHeight() throws IllegalValueException, NumberFormatException {
-        double height = Double.parseDouble(userIO.readline());
+    public double readHeight() throws IllegalValueException {
+        double height;
+        try {
+            height = Double.parseDouble(userIO.readline());
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Value must be a number");
+        }
         double minHeight = 0;
         if (height <= minHeight) {
             throw new IllegalValueException("Value must be greater than " + minHeight);
@@ -86,11 +101,15 @@ public class PersonReader {
         return read;
     }
 
-    public Country readCountry() throws IllegalArgumentException {
+    public Country readCountry() throws IllegalValueException {
         Country country = null;
         String stringCountry = userIO.readline();
         if (!stringCountry.isEmpty()) {
-            country = Country.valueOf(stringCountry.toUpperCase(Locale.ROOT));
+            try {
+                country = Country.valueOf(stringCountry.toUpperCase(Locale.ROOT));
+            } catch (IllegalArgumentException e) {
+                throw new IllegalValueException("Chose anything from list");
+            }
         }
         return country;
     }
