@@ -25,7 +25,8 @@ public final class ParserCSV {
     private ParserCSV() {
     }
 
-    public static void parseCollectionToCSV(String fileName, CollectionManager collectionManager) throws FileNotFoundException {
+    public static void parseCollectionToCSV(String fileName, CollectionManager collectionManager) throws
+            FileNotFoundException {
         try (Writer writer = new FileWriter(fileName)) {
             writer.write("timeCreate," + collectionManager.getTimeCreate() + '\n');
             HeaderColumnNameMappingStrategy<Person> strategy = new HeaderColumnNameMappingStrategyBuilder<Person>().build();

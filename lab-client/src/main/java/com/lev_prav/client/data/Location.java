@@ -6,54 +6,54 @@ import java.util.Objects;
 
 public class Location {
     @CsvBindByName
-    private Double x; //Поле не может быть null
+    private Double locationX; //Поле не может быть null
     @CsvBindByName
-    private Integer y; //Поле не может быть null
+    private Integer locationY; //Поле не может быть null
     @CsvBindByName
-    private Float z; //Поле не может быть null
+    private Float locationZ; //Поле не может быть null
     @CsvBindByName
-    private String name; //Поле может быть null
+    private String locationName; //Поле может быть null
 
     public Location(Double x, Integer y, Float z, String name) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.name = name;
+        this.locationX = x;
+        this.locationY = y;
+        this.locationZ = z;
+        this.locationName = name;
     }
 
     public Location() {
     }
 
-    public Double getX() {
-        return x;
+    public Double getLocationX() {
+        return locationX;
     }
 
-    public void setX(Double x) {
-        this.x = x;
+    public void setLocationX(Double locationX) {
+        this.locationX = locationX;
     }
 
-    public Integer getY() {
-        return y;
+    public Integer getLocationY() {
+        return locationY;
     }
 
-    public void setY(Integer y) {
-        this.y = y;
+    public void setLocationY(Integer locationY) {
+        this.locationY = locationY;
     }
 
-    public Float getZ() {
-        return z;
+    public Float getLocationZ() {
+        return locationZ;
     }
 
-    public void setZ(Float z) {
-        this.z = z;
+    public void setLocationZ(Float locationZ) {
+        this.locationZ = locationZ;
     }
 
-    public String getName() {
-        return name;
+    public String getLocationName() {
+        return locationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
     @Override
@@ -65,21 +65,21 @@ public class Location {
             return false;
         }
         Location location = (Location) o;
-        return x.equals(location.x) && y.equals(location.y) && z.equals(location.z) && name.equals(location.name);
+        return locationX.equals(location.locationX) && locationY.equals(location.locationY) && locationZ.equals(location.locationZ) && locationName.equals(location.locationName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, z, name);
+        return Objects.hash(locationX, locationY, locationZ, locationName);
     }
 
     @Override
     public String toString() {
         return "Location{"
-                + "x=" + x
-                + ", y=" + y
-                + ", z=" + z
-                + ", name='" + name + '\''
+                + "x=" + locationX
+                + ", y=" + locationY
+                + ", z=" + locationZ
+                + ", name='" + locationName + '\''
                 + '}';
     }
 }
