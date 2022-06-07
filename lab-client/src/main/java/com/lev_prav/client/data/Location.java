@@ -1,11 +1,17 @@
 package com.lev_prav.client.data;
 
+import com.opencsv.bean.CsvBindByName;
+
 import java.util.Objects;
 
 public class Location {
+    @CsvBindByName
     private Double x; //Поле не может быть null
+    @CsvBindByName
     private Integer y; //Поле не может быть null
+    @CsvBindByName
     private Float z; //Поле не может быть null
+    @CsvBindByName
     private String name; //Поле может быть null
 
     public Location(Double x, Integer y, Float z, String name) {
@@ -13,6 +19,9 @@ public class Location {
         this.y = y;
         this.z = z;
         this.name = name;
+    }
+
+    public Location() {
     }
 
     public Double getX() {

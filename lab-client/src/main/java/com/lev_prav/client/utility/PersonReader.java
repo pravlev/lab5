@@ -114,16 +114,28 @@ public class PersonReader {
         return country;
     }
 
-    public Double readLocationX() throws NumberFormatException {
-        return Double.parseDouble(userIO.readline());
+    public Double readLocationX() throws IllegalValueException {
+        try {
+            return Double.parseDouble(userIO.readline());
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("type a number please");
+        }
     }
 
-    public Integer readLocationY() throws NumberFormatException {
-        return Integer.parseInt(userIO.readline());
+    public Integer readLocationY() throws IllegalValueException {
+        try {
+            return Integer.parseInt(userIO.readline());
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("type a number please");
+        }
     }
 
-    public Float readLocationZ() throws NumberFormatException {
-        return Float.parseFloat(userIO.readline());
+    public Float readLocationZ() throws IllegalValueException {
+        try {
+            return Float.parseFloat(userIO.readline());
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("type a number please");
+        }
     }
 
 }

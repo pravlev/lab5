@@ -1,14 +1,21 @@
 package com.lev_prav.client.data;
 
+import com.opencsv.bean.CsvBindByName;
+
 import java.util.Objects;
 
 public class Coordinates {
+    @CsvBindByName
     private Long x; //Максимальное значение поля: 177, Поле не может быть null
+    @CsvBindByName
     private Float y; //Значение поля должно быть больше -635, Поле не может быть null
 
     public Coordinates(Long x, Float y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Coordinates() {
     }
 
     public Long getX() {

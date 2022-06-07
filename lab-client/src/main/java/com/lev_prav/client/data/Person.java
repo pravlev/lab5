@@ -1,19 +1,34 @@
 package com.lev_prav.client.data;
 
 
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
+import com.opencsv.bean.CsvRecurse;
+
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public class Person implements Comparable<Person> {
+    @CsvBindByName
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    @CsvBindByName
     private String name; //Поле не может быть null, Строка не может быть пустой
+    @CsvRecurse
     private Coordinates coordinates; //Поле не может быть null
+    @CsvBindByName
+    @CsvDate("yyyy-MM-dd'T'HH:mm:ssZ")
     private java.time.ZonedDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    @CsvBindByName
     private double height; //Значение поля должно быть больше 0
+    @CsvBindByName
+    @CsvDate("yyyy-MM-dd'T'HH:mm:ss")
     private java.time.LocalDateTime birthday; //Поле не может быть null
+    @CsvBindByName
     private String passportID; //Строка не может быть пустой, Значение этого поля должно быть уникальным, Поле может быть null
+    @CsvBindByName
     private Country nationality; //Поле может быть null
+    @CsvRecurse
     private Location location; //Поле не может быть null
 
     public Person(String name, Coordinates coordinates, double height, LocalDateTime birthday, String passportID, Country nationality,
@@ -29,7 +44,6 @@ public class Person implements Comparable<Person> {
 
     public Person() {
     }
-
     public int getId() {
         return id;
     }
