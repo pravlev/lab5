@@ -1,15 +1,15 @@
 package com.lev_prav.client.userio;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayDeque;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class UserIO {
     private Scanner fin;
-    private Stack<String> fileNameScanners;
+    private Stack<ArrayDeque<String>> fileContents;
     private BufferedWriter fout;
     private boolean scriptMode;
 
@@ -26,19 +26,17 @@ public class UserIO {
 
     public String readline() {
         if (scriptMode) {
-            try (Scanner fileScanner = new Scanner(fileNameScanners.peek())) {
-                if (fileScanner.hasNext()) {
-                    return fileScanner.nextLine();
-                } else {
-                    finishReadScript();
-                    try {
-                        fout.write("Reached the end of the file.");
-                        fout.flush();
-                    } catch (IOException e) {
-                        System.err.println("Exception while writing to output stream: \n" + e);
-                    }
-                    return fin.nextLine();
+            if (!fileContents.peek().isEmpty()) {
+                return fileContents.peek().pop();
+            } else {
+                finishReadScript();
+                try {
+                    fout.write("Reached the end of the file.");
+                    fout.flush();
+                } catch (IOException e) {
+                    System.err.println("Exception while writing to output stream: \n" + e);
                 }
+                return readline();
             }
         }
         return fin.nextLine();
@@ -94,23 +92,28 @@ public class UserIO {
     }
 
     public void startReadScript(String fileName) {
-        if (fileNameScanners == null) {
-            fileNameScanners = new Stack<>();
+        if (fileContents == null) {
+            fileContents = new Stack<>();
         }
         writeln("Start reading from file " + fileName + "...");
-        fileNameScanners.push(fileName);
+        fileContents.push(new ArrayDeque<>());
+        try (Scanner fileScanner = new Scanner(fileName)) {
+            while (fileScanner.hasNextLine()) {
+                fileContents.peek().add(fileScanner.nextLine());
+            }
+        }
         scriptMode = true;
 
 
     }
 
     public void finishReadScript() {
-        writeln("Reading from file was finished");
-        if (!fileNameScanners.empty()) {
-            fileNameScanners.pop();
+        if (!fileContents.empty()) {
+            fileContents.pop();
         }
-        if (fileNameScanners.empty()) {
+        if (fileContents.empty()) {
             scriptMode = false;
         }
+        writeln("Reading from file was finished");
     }
 }
