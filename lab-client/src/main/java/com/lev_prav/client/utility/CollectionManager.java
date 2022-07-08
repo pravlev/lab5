@@ -2,6 +2,7 @@ package com.lev_prav.client.utility;
 
 import com.lev_prav.client.data.Country;
 import com.lev_prav.client.data.Person;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -117,6 +118,6 @@ public class CollectionManager {
     }
 
     public List<Person> filerLessThanNationality(Country country) {
-        return persons.stream().filter(e -> e.getNationality().compareTo(country) < 0).collect(Collectors.toList());
+        return persons.stream().filter(e -> e != null && e.getNationality().compareTo(country) < 0).collect(Collectors.toList());
     }
 }
