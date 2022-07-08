@@ -15,7 +15,9 @@ public class SimplePersonFiller<T> {
         T returns;
         while (true) {
             try {
-                userIO.write(message + ": ");
+                if (!userIO.isScriptMode()) {
+                    userIO.write(message + ": ");
+                }
                 returns = reader.read();
                 break;
             } catch (IllegalValueException e) {

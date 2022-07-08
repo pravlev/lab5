@@ -1,6 +1,8 @@
 package com.lev_prav.client.userio;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayDeque;
@@ -12,58 +14,53 @@ public class UserIO {
     private Stack<ArrayDeque<String>> fileContents;
     private BufferedWriter fout;
     private boolean scriptMode;
+    private boolean isEnded;
 
     public UserIO(Scanner fin, Writer fout) {
         this.fin = fin;
         this.fout = new BufferedWriter(fout);
         scriptMode = false;
+        isEnded = false;
     }
 
     public UserIO(Scanner fin, Writer fout, boolean scriptMode) {
         this(fin, fout);
         this.scriptMode = scriptMode;
+        isEnded = false;
     }
 
     public String readline() {
         if (scriptMode) {
-            if (!fileContents.peek().isEmpty()) {
+            if (!fileContents.empty() && !fileContents.peek().isEmpty()) {
                 return fileContents.peek().pop();
             } else {
                 finishReadScript();
-                try {
-                    fout.write("Reached the end of the file.");
-                    fout.flush();
-                } catch (IOException e) {
-                    System.err.println("Exception while writing to output stream: \n" + e);
-                }
                 return readline();
             }
+        }
+        if (!fin.hasNextLine() && !isEnded) {
+            isEnded = true;
+            return "";
         }
         return fin.nextLine();
     }
 
     public void write(Object s) {
-        if (scriptMode) {
-            return;
-        }
         try {
             fout.write(s.toString());
             fout.flush();
         } catch (IOException e) {
-            System.err.println("Exception while writing to output stream: \n" + e);
+            writeln("Exception while writing to output stream: \n" + e);
         }
     }
 
     public void writeln(Object s) {
-        if (scriptMode) {
-            return;
-        }
         try {
             fout.write(s.toString());
             fout.newLine();
             fout.flush();
         } catch (IOException e) {
-            System.err.println("Exception while writing to output stream: \n" + e);
+            writeln("Exception while writing to output stream: \n" + e);
         }
     }
 
@@ -95,13 +92,19 @@ public class UserIO {
         if (fileContents == null) {
             fileContents = new Stack<>();
         }
-        writeln("Start reading from file " + fileName + "...");
+
         fileContents.push(new ArrayDeque<>());
-        try (Scanner fileScanner = new Scanner(fileName)) {
+        try (Scanner fileScanner = new Scanner(new File(fileName))) {
             while (fileScanner.hasNextLine()) {
                 fileContents.peek().add(fileScanner.nextLine());
             }
+        } catch (FileNotFoundException e) {
+            writeln("File '" + fileName + "' not found");
+            fileContents.pop();
+            return;
         }
+
+        writeln("Start reading from file " + fileName + " ...");
         scriptMode = true;
 
 
@@ -115,5 +118,12 @@ public class UserIO {
             scriptMode = false;
         }
         writeln("Reading from file was finished");
+    }
+
+    public void finishReadAllScript() {
+        if (!fileContents.empty()) {
+            fileContents.clear();
+        }
+        scriptMode = false;
     }
 }

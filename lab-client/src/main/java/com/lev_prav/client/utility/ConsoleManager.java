@@ -8,6 +8,7 @@ import com.lev_prav.client.userio.UserIO;
 
 import java.io.FileNotFoundException;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 
 public class ConsoleManager {
     private final CommandManager commandManager;
@@ -24,6 +25,10 @@ public class ConsoleManager {
     public void start() throws FileNotFoundException {
         boolean executeFlag = true;
         while (executeFlag) {
+            if (!userIO.isScriptMode() && !userIO.getFin().hasNextLine()) {
+                userIO.writeln("The work of the program has been completed due to the termination of the input.");
+                break;
+            }
             String input = userIO.readline();
             String inputCommand = input.split(" ")[0].toLowerCase(Locale.ROOT);
             String argument = "";
@@ -37,9 +42,11 @@ public class ConsoleManager {
                     command.execute(argument);
                     executeFlag = command.getExecuteFlag();
                     commandManager.addToHistory(command);
-                    userIO.writeln("completed");
+                    if (!userIO.isScriptMode()) {
+                        userIO.writeln("completed");
+                    }
                 } catch (ScriptException e) {
-                    userIO.finishReadScript();
+                    userIO.finishReadAllScript();
                     userIO.writeln(e.getMessage());
                 } catch (NoSuchCommandException | IllegalValueException e) {
                     if (userIO.isScriptMode()) {
@@ -51,6 +58,9 @@ public class ConsoleManager {
                         userIO.finishReadScript();
                     }
                     userIO.writeln("type a number please");
+                } catch (NoSuchElementException e) {
+                    userIO.writeln("\nThe work of the program has been completed due to the termination of the input.");
+                    break;
                 }
             } else {
                 userIO.writeln("No such command. Type \"help\" to get all commands with their names and descriptions");

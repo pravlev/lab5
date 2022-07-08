@@ -49,6 +49,9 @@ public final class ParserCSV {
                 new IOException();
             }
             ZonedDateTime timeCreate = ZonedDateTime.parse(str[1]);
+            if (!reader.ready()) {
+                return new CollectionManager(new ArrayDeque<>(), timeCreate);
+            }
             persons = new CsvToBeanBuilder<Person>(reader)
                     .withType(Person.class)
                     .build()

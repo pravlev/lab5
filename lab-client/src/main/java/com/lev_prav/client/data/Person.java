@@ -44,6 +44,7 @@ public class Person implements Comparable<Person> {
 
     public Person() {
     }
+
     public int getId() {
         return id;
     }
@@ -135,17 +136,17 @@ public class Person implements Comparable<Person> {
 
     @Override
     public String toString() {
-        return "Person{"
+        return "Person{\n"
                 + "id=" + id
-                + ", name='" + name + '\''
-                + ", coordinates=" + coordinates
-                + ", creationDate=" + creationDate
-                + ", height=" + height
-                + ", birthday=" + birthday
-                + ", passportID='" + passportID + '\''
-                + ", nationality=" + nationality
-                + ", location=" + location
-                + '}';
+                + ",\nname='" + name + '\''
+                + ",\ncoordinates=" + coordinates
+                + ",\ncreationDate=" + creationDate
+                + ",\nheight=" + height
+                + ",\nbirthday=" + birthday
+                + ",\npassportID='" + passportID + '\''
+                + ",\nnationality=" + nationality
+                + ",\nlocation=" + location
+                + "\n}";
     }
 
     @Override

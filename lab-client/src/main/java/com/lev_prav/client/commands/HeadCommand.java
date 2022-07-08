@@ -22,6 +22,10 @@ public class HeadCommand extends Command {
         if (!argument.isEmpty()) {
             throw new NoSuchCommandException();
         }
+        if (collectionManager.getPersons().isEmpty()) {
+            userIO.writeln("collection is empty");
+            return;
+        }
         userIO.writeln(collectionManager.getPersons().getFirst());
     }
 }
