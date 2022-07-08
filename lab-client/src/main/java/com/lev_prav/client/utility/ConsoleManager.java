@@ -32,7 +32,6 @@ public class ConsoleManager {
             String input = userIO.readline();
             String inputCommand = input.split(" ")[0].toLowerCase(Locale.ROOT);
             String argument = "";
-            boolean completed = false;
             if (input.split(" ").length > 1) {
                 argument = input.replaceFirst(inputCommand + " ", "");
             }
@@ -45,13 +44,8 @@ public class ConsoleManager {
                     if (!userIO.isScriptMode()) {
                         userIO.writeln("completed");
                     }
-                } catch (ScriptException e) {
+                } catch (ScriptException | NoSuchCommandException | IllegalValueException e) {
                     userIO.finishReadAllScript();
-                    userIO.writeln(e.getMessage());
-                } catch (NoSuchCommandException | IllegalValueException e) {
-                    if (userIO.isScriptMode()) {
-                        userIO.finishReadScript();
-                    }
                     userIO.writeln(e.getMessage());
                 } catch (NumberFormatException e) {
                     if (userIO.isScriptMode()) {
