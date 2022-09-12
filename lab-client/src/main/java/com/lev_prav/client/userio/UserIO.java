@@ -121,6 +121,9 @@ public class UserIO {
     }
 
     public void finishReadAllScript() {
+        if (!scriptMode) {
+            return;
+        }
         if (!fileContents.empty()) {
             fileContents.clear();
         }

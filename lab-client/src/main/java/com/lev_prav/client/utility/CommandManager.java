@@ -56,7 +56,7 @@ public class CommandManager {
         commands.put(averageOfHeightCommand.getName(), averageOfHeightCommand);
         GroupCountingByCreationDateCommand groupCountingByCreationDateCommand = new GroupCountingByCreationDateCommand(collectionManager, userIO);
         commands.put(groupCountingByCreationDateCommand.getName(), groupCountingByCreationDateCommand);
-        FilterLessThanNationalityCommand filterLessThanNationalityCommand = new FilterLessThanNationalityCommand(collectionManager, userIO, personFiller);
+        FilterLessThanNationalityCommand filterLessThanNationalityCommand = new FilterLessThanNationalityCommand(collectionManager, userIO);
         commands.put(filterLessThanNationalityCommand.getName(), filterLessThanNationalityCommand);
     }
 
