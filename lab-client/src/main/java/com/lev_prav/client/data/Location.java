@@ -75,11 +75,10 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{"
-                + "x=" + locationX
-                + ", y=" + locationY
-                + ", z=" + locationZ
-                + ", name='" + locationName + '\''
-                + '}';
+        return "Location:\n"
+                + "      x=" + locationX
+                + ",\n      y=" + locationY
+                + ",\n      z=" + locationZ
+                + ",\n      name='" + locationName + '\'';
     }
 }

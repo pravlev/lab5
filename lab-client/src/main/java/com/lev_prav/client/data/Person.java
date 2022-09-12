@@ -136,17 +136,17 @@ public class Person implements Comparable<Person> {
 
     @Override
     public String toString() {
-        return "Person{\n"
-                + "id=" + id
-                + ",\nname='" + name + '\''
-                + ",\ncoordinates=" + coordinates
-                + ",\ncreationDate=" + creationDate
-                + ",\nheight=" + height
-                + ",\nbirthday=" + birthday
-                + ",\npassportID='" + passportID + '\''
-                + ",\nnationality=" + nationality
-                + ",\nlocation=" + location
-                + "\n}";
+        return "Person:\n"
+                + "    id=" + id
+                + ",\n    name='" + name + '\''
+                + ",\n    coordinates=" + coordinates
+                + ",\n    creationDate=" + creationDate
+                + ",\n    height=" + height
+                + ",\n    birthday=" + birthday
+                + ",\n    passportID='" + passportID + '\''
+                + ",\n    nationality=" + nationality
+                + ",\n    location=" + location
+                + "\n";
     }
 
     @Override
